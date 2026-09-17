@@ -1,5 +1,5 @@
 export const profileData = {
-  name: "LOKESH M",
+  name: "Lokesh M",
   handle: "@lokeshpuma",
   role: "AI/ML Engineer · Gen AI · DL · LLMs · Agentic AI",
   typingRoles: [
