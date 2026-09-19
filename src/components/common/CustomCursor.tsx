@@ -59,20 +59,39 @@ export const CustomCursor: React.FC = () => {
   if (!isVisible) return null;
 
   return (
-    <motion.div
-      style={{
-        x: cursorX,
-        y: cursorY,
-        translateX: '-50%',
-        translateY: '-50%',
-      }}
-      animate={{
-        scale: isHovered ? 2.2 : 1,
-        backgroundColor: isHovered ? 'rgba(34, 211, 238, 0.25)' : 'rgba(34, 211, 238, 0.9)',
-        borderColor: isHovered ? 'rgba(34, 211, 238, 0.9)' : 'transparent',
-      }}
-      transition={{ duration: 0.15, ease: 'easeOut' }}
-      className="pointer-events-none fixed inset-0 z-50 h-3 w-3 rounded-full border border-transparent shadow-[0_0_8px_rgba(34,211,238,0.6)] backdrop-blur-[0.5px]"
-    />
+    <>
+      {/* Precision Core Dot */}
+      <motion.div
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: '-50%',
+          translateY: '-50%',
+        }}
+        animate={{
+          scale: isHovered ? 1.8 : 1,
+          backgroundColor: isHovered ? 'rgba(34, 211, 238, 0.95)' : 'rgba(34, 211, 238, 0.85)',
+        }}
+        transition={{ duration: 0.12, ease: 'easeOut' }}
+        className="pointer-events-none fixed inset-0 z-50 h-2.5 w-2.5 rounded-full shadow-[0_0_10px_rgba(34,211,238,0.8)]"
+      />
+
+      {/* Ambient Fluid Aura Ring */}
+      <motion.div
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: '-50%',
+          translateY: '-50%',
+        }}
+        animate={{
+          scale: isHovered ? 2.6 : 1,
+          opacity: isHovered ? 0.8 : 0.4,
+          borderColor: isHovered ? 'rgba(34, 211, 238, 0.6)' : 'rgba(34, 211, 238, 0.25)',
+        }}
+        transition={{ duration: 0.22, ease: 'easeOut' }}
+        className="pointer-events-none fixed inset-0 z-40 h-8 w-8 rounded-full border border-cyan-400/30 bg-cyan-400/5 backdrop-blur-[1px]"
+      />
+    </>
   );
 };

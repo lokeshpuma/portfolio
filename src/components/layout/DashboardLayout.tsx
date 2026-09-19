@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
 import { Footer } from './Footer';
+import { MobileTabBar } from './MobileTabBar';
 import { ParticleBackground } from '../common/ParticleBackground';
 import { BackgroundGlow } from '../common/BackgroundGlow';
 import { CustomCursor } from '../common/CustomCursor';
@@ -12,17 +13,17 @@ export const DashboardLayout: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-slate-50 text-slate-900 dark:bg-[#070b14] dark:text-slate-100 transition-colors duration-300">
-      {/* Refined Minimalist Precision Micro-Pointer Cursor */}
+    <div className="relative min-h-screen bg-[#f4f6fb] text-slate-900 dark:bg-[#060913] dark:text-slate-100 transition-colors duration-300">
+      {/* Precision Micro-Pointer & Fluid Aura */}
       <CustomCursor />
 
-      {/* Fluid Dynamic Ambient Glow in corners and background */}
+      {/* Atmospheric Spatial Ambient Glow */}
       <BackgroundGlow />
 
       {/* Dynamic Starfield Particles Canvas */}
       <ParticleBackground />
 
-      {/* Persistent Left Collapsible Sidebar */}
+      {/* Persistent / Floating macOS Spatial Glass Sidebar */}
       <Sidebar
         isOpenMobile={mobileMenuOpen}
         onCloseMobile={() => setMobileMenuOpen(false)}
@@ -30,10 +31,13 @@ export const DashboardLayout: React.FC = () => {
         onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
       />
 
-      {/* Main Content Area - dynamically adjusts padding when collapsed */}
+      {/* Native iPhone Floating Bottom Glass Tab Bar */}
+      <MobileTabBar onOpenFullMenu={() => setMobileMenuOpen(true)} />
+
+      {/* Main Content Area */}
       <div
         className={`relative z-10 flex min-h-screen flex-col transition-all duration-300 ${
-          isCollapsed ? 'md:pl-20' : 'md:pl-64'
+          isCollapsed ? 'md:pl-24' : 'md:pl-72'
         }`}
       >
         <Topbar onOpenMobileMenu={() => setMobileMenuOpen(true)} />
