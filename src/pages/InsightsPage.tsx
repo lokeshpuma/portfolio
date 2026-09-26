@@ -11,29 +11,35 @@ import { globalStatMetrics } from '../data/profile';
 import { StatCard } from '../components/common/StatCard';
 import { CTABanner } from '../components/common/CTABanner';
 import { DynamicIcon } from '../components/common/DynamicIcon';
-import { ShieldCheck, ArrowRight } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Activity, Cpu, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 
 export const InsightsPage: React.FC = () => {
   const [, setActiveDonutIndex] = useState<number | null>(null);
 
+  // Recolor donut chart to single accent (amber) + neutral grays only (matching spec)
+  const donutColors = ['#f59e0b', '#d97706', '#52525b', '#27272a'];
+
   return (
     <div className="mx-auto max-w-7xl space-y-10">
       {/* Header */}
       <div className="space-y-2">
         <div className="flex items-center gap-3">
-          <div className="h-6 w-1 rounded-full bg-cyan-500 shadow-[0_0_10px_#22d3ee] dark:bg-cyan-400" />
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white md:text-3xl">
-            Analytics & <span className="text-cyan-600 dark:text-cyan-400 text-glow-cyan">Technical Proof</span>
+          <div className="h-5 w-[3px] bg-[var(--accent-amber)] shadow-[0_0_6px_var(--accent-glow)] rounded-[1px]" />
+          <h1 className="font-sans text-2xl md:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
+            Analytics & Technical Proof
           </h1>
+          <span className="meta-label outline-tag px-2 py-0.5">
+            VALIDATION TELEMETRY
+          </span>
         </div>
-        <p className="max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-          Quantified metrics, architectural decisions, evaluation rigor, and portfolio insights designed to demonstrate real-world impact.
+        <p className="max-w-3xl text-xs md:text-sm leading-relaxed text-[var(--text-secondary)]">
+          Quantified metrics, architectural decisions, evaluation rigor, and portfolio insights designed to demonstrate real-world engineering impact.
         </p>
       </div>
 
-      {/* 6 Top Stat Cards */}
+      {/* 6 Top Stat Cards as one Ledger Block snapped to 8px grid */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         {globalStatMetrics.slice(0, 6).map((stat, idx) => (
           <StatCard
@@ -48,27 +54,32 @@ export const InsightsPage: React.FC = () => {
       </div>
 
       {/* Section: Selected Technical Proof */}
-      <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1222]/90 dark:shadow-[0_8px_30px_rgba(3,7,18,0.7)] space-y-5">
-        <div className="border-b border-slate-200/80 dark:border-white/[0.06] pb-3">
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">Selected Technical Proof</h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Six projects with concrete validation, scale or deployment evidence
-          </p>
+      <div className="bevel-panel p-6 space-y-5">
+        <div className="border-b border-[var(--border-hairline)] pb-3 flex items-center justify-between">
+          <div>
+            <h3 className="font-sans text-sm font-bold uppercase tracking-tight text-[var(--text-primary)]">
+              Selected Technical Proof
+            </h3>
+            <p className="font-mono text-[10px] text-[var(--text-secondary)]">
+              Concrete validation, scale, and deployment evidence across projects.
+            </p>
+          </div>
+          <span className="font-mono text-[10px] text-[var(--accent-amber)]">VERIFIED METRICS</span>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           {selectedTechnicalProof.map((item) => (
             <div
               key={item.id}
-              className="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-4 transition hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:border-white/[0.06] dark:bg-[#10192e]/60 dark:hover:bg-[#131f38]"
+              className="rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-sub)] p-3.5 transition-colors hover:border-[var(--accent-border)]"
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-900 dark:text-white">{item.projectTitle}</span>
-                <span className="rounded-md border border-cyan-500/30 bg-cyan-50 px-2 py-0.5 text-[11px] font-semibold text-cyan-700 dark:border-cyan-500/30 dark:bg-cyan-950/60 dark:text-cyan-300">
+                <span className="font-sans text-xs font-bold text-[var(--text-primary)]">{item.projectTitle}</span>
+                <span className="font-mono tabular-nums text-[9px] text-[var(--accent-amber)] border border-[var(--accent-border)] bg-[var(--accent-subtle)] px-1.5 py-0.5 rounded-[1px]">
                   {item.statBadge}
                 </span>
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+              <p className="mt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
                 {item.description}
               </p>
             </div>
@@ -78,9 +89,9 @@ export const InsightsPage: React.FC = () => {
         <div className="pt-2 text-center">
           <Link
             to="/projects"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
+            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[var(--accent-amber)] hover:underline"
           >
-            <span>Open All 13 Case Studies</span>
+            <span>OPEN DEPLOYED PROJECTS</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
@@ -89,31 +100,33 @@ export const InsightsPage: React.FC = () => {
       {/* Split Section: Engineering Capabilities vs Portfolio Composition */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         {/* Left 7 cols: Engineering Capabilities */}
-        <div className="flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1222]/90 dark:shadow-[0_8px_30px_rgba(3,7,18,0.7)] lg:col-span-7">
+        <div className="flex flex-col justify-between bevel-panel p-6 lg:col-span-7">
           <div className="space-y-4">
-            <div className="border-b border-slate-200/80 dark:border-white/[0.06] pb-3">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Engineering Capabilities</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+            <div className="border-b border-[var(--border-hairline)] pb-3">
+              <h3 className="font-sans text-sm font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                Engineering Capabilities
+              </h3>
+              <p className="font-mono text-[10px] text-[var(--text-secondary)]">
                 What I can build, with projects that prove each capability
               </p>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {engineeringCapabilities.map((cap) => (
                 <div
                   key={cap.id}
-                  className="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-4 transition hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:border-white/[0.06] dark:bg-[#10192e]/60 dark:hover:bg-[#131f38]"
+                  className="rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-sub)] p-3.5 transition-colors hover:border-[var(--accent-border)]"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
-                      <DynamicIcon name={cap.icon} className="h-4 w-4" />
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-active)] text-[var(--accent-amber)]">
+                      <DynamicIcon name={cap.icon} className="h-3.5 w-3.5" />
                     </div>
-                    <div className="space-y-1">
-                      <h4 className="text-xs font-bold text-slate-900 dark:text-white">{cap.title}</h4>
-                      <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                    <div className="space-y-0.5">
+                      <h4 className="font-sans text-xs font-bold text-[var(--text-primary)]">{cap.title}</h4>
+                      <p className="text-xs leading-relaxed text-[var(--text-secondary)]">
                         {cap.description}
                       </p>
-                      <div className="pt-1 text-[11px] text-cyan-600 dark:text-cyan-400/90 font-medium">
+                      <div className="pt-1 font-mono text-[10px] text-[var(--accent-amber)] font-medium">
                         Evidence: {cap.evidenceProjects.join(' | ')}
                       </div>
                     </div>
@@ -123,29 +136,31 @@ export const InsightsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/[0.06]">
+          <div className="mt-5 pt-3 border-t border-[var(--border-hairline)]">
             <Link
               to="/skills"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[var(--accent-amber)] hover:underline"
             >
-              <span>See the Interview-Focused Skill Set</span>
+              <span>SEE INTERVIEW-FOCUSED SKILL SET</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
 
         {/* Right 5 cols: Portfolio Composition Donut */}
-        <div className="flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1222]/90 dark:shadow-[0_8px_30px_rgba(3,7,18,0.7)] lg:col-span-5">
+        <div className="flex flex-col justify-between bevel-panel p-6 lg:col-span-5">
           <div className="space-y-4">
-            <div className="border-b border-slate-200/80 dark:border-white/[0.06] pb-3">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Portfolio Composition</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Where the 13 case studies concentrate technically
+            <div className="border-b border-[var(--border-hairline)] pb-3">
+              <h3 className="font-sans text-sm font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                Portfolio Composition
+              </h3>
+              <p className="font-mono text-[10px] text-[var(--text-secondary)]">
+                Technical domain concentration
               </p>
             </div>
 
             {/* Recharts Donut Chart */}
-            <div className="relative h-56 w-full">
+            <div className="relative h-52 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Tooltip
@@ -153,9 +168,9 @@ export const InsightsPage: React.FC = () => {
                       if (active && payload && payload.length) {
                         const data = payload[0].payload as (typeof portfolioComposition)[0];
                         return (
-                          <div className="rounded-xl border border-slate-200 bg-white p-2.5 text-xs shadow-xl dark:border-cyan-500/30 dark:bg-[#0c1222]">
-                            <span className="font-bold text-slate-900 dark:text-white">{data.name}</span>
-                            <div className="text-cyan-600 dark:text-cyan-400">{data.value}% ({data.count} projects)</div>
+                          <div className="rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-bg)] p-2 font-mono tabular-nums text-xs text-[var(--text-primary)] shadow-md">
+                            <span className="font-bold text-[var(--accent-amber)]">{data.name}</span>
+                            <div className="text-[var(--text-secondary)]">{data.value}% ({data.count} projects)</div>
                           </div>
                         );
                       }
@@ -164,196 +179,105 @@ export const InsightsPage: React.FC = () => {
                   />
                   <Pie
                     data={portfolioComposition}
-                    innerRadius={55}
-                    outerRadius={80}
-                    paddingAngle={4}
+                    innerRadius={50}
+                    outerRadius={75}
+                    paddingAngle={3}
                     dataKey="value"
                     onMouseEnter={(_, index) => setActiveDonutIndex(index)}
                   >
-                    {portfolioComposition.map((entry, index) => (
+                    {portfolioComposition.map((_, index) => (
                       <Cell
                         key={`cell-${index}`}
-                        fill={entry.color}
-                        stroke="none"
+                        fill={donutColors[index % donutColors.length]}
+                        stroke="var(--bg-main)"
+                        strokeWidth={2}
                       />
                     ))}
                   </Pie>
                 </PieChart>
               </ResponsiveContainer>
 
-              {/* Center icon */}
+              {/* Center Shield Icon */}
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
-                  <ShieldCheck className="h-5 w-5" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-[2px] border border-[var(--accent-border)] bg-[var(--accent-subtle)] text-[var(--accent-amber)]">
+                  <ShieldCheck className="h-4 w-4" />
                 </div>
               </div>
             </div>
 
-            {/* Composition Legend */}
-            <div className="space-y-2">
-              {portfolioComposition.map((item) => (
+            {/* Composition Legend with neutral / amber color indicators */}
+            <div className="space-y-1.5">
+              {portfolioComposition.map((item, index) => (
                 <div
                   key={item.name}
-                  className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-1.5 text-xs dark:bg-white/[0.02]"
+                  className="flex items-center justify-between rounded-[2px] bg-[var(--panel-sub)] px-3 py-1.5 font-mono tabular-nums text-[11px]"
                 >
                   <div className="flex items-center gap-2">
                     <span
-                      className="h-2.5 w-2.5 rounded-full"
-                      style={{ backgroundColor: item.color }}
+                      className="h-2 w-2 rounded-[1px]"
+                      style={{ backgroundColor: donutColors[index % donutColors.length] }}
                     />
-                    <span className="text-slate-800 dark:text-slate-200">{item.name}</span>
-                    <span className="text-[11px] text-slate-500 dark:text-slate-400">{item.count} projects</span>
+                    <span className="text-[var(--text-primary)] font-sans">{item.name}</span>
+                    <span className="text-[10px] text-[var(--text-muted)]">({item.count})</span>
                   </div>
-                  <span className="font-bold text-slate-900 dark:text-white">{item.value}%</span>
+                  <span className="font-bold text-[var(--accent-amber)]">{item.value}%</span>
                 </div>
               ))}
             </div>
 
             {/* Note banner */}
-            <div className="rounded-2xl border border-cyan-500/30 bg-cyan-50/80 p-3.5 text-xs text-slate-700 dark:border-cyan-500/20 dark:bg-cyan-950/20 dark:text-slate-300">
-              <div className="font-semibold text-cyan-700 dark:text-cyan-300">Built for applied DS/ML roles</div>
-              <p className="mt-1 leading-relaxed text-slate-600 dark:text-slate-400">
-                77% of the portfolio is focused on machine learning or analytics with emphasis on validation, explainability, deployment and decision support.
+            <div className="rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-sub)] p-3 text-xs">
+              <div className="meta-label !text-[var(--accent-amber)]">
+                APPLIED DS/ML FOCUS
+              </div>
+              <p className="mt-1 font-sans text-[11px] leading-relaxed text-[var(--text-secondary)]">
+                Concentrated on machine learning and analytics with emphasis on cross-validation, explainability, sub-50ms inference, and decision support.
               </p>
             </div>
-          </div>
-
-          <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/[0.06]">
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
-            >
-              <span>Explore Projects by Domain</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
           </div>
         </div>
       </div>
 
-      {/* Section: ML Evaluation in Context Table */}
-      <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1222]/90 dark:shadow-[0_8px_30px_rgba(3,7,18,0.7)] space-y-4">
-        <div className="border-b border-slate-200/80 dark:border-white/[0.06] pb-3">
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">ML Evaluation, in Context</h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Comparable only within each task—never blended into a fake score
+      {/* Evaluation Rigor Table as Bevel Panel */}
+      <div className="bevel-panel p-6 space-y-4">
+        <div className="border-b border-[var(--border-hairline)] pb-3">
+          <h3 className="font-sans text-sm font-bold uppercase tracking-tight text-[var(--text-primary)]">
+            Evaluation Rigor Matrix
+          </h3>
+          <p className="font-mono text-[10px] text-[var(--text-secondary)]">
+            Explicit validation strategy and performance metrics per architecture.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {mlEvaluations.map((evalItem) => (
-            <div
-              key={evalItem.project}
-              className="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-4 space-y-2 transition hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:border-white/[0.06] dark:bg-[#10192e]/60 dark:hover:bg-[#131f38]"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-900 dark:text-white">{evalItem.project}</span>
-                <span className="rounded-md border border-cyan-500/30 bg-cyan-50 px-2 py-0.5 text-[11px] font-semibold text-cyan-700 dark:border-cyan-500/30 dark:bg-cyan-950/60 dark:text-cyan-300">
-                  {evalItem.validationStrategy}
-                </span>
-              </div>
-              <div className="text-xs font-medium text-slate-700 dark:text-slate-300">{evalItem.keyMetric}</div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">{evalItem.detail}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="pt-2 text-center">
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
-          >
-            <span>View Project Methodology</span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left font-mono tabular-nums text-xs">
+            <thead>
+              <tr className="border-b border-[var(--border-hairline)] text-[10px] text-[var(--text-muted)]">
+                <th className="pb-2">PROJECT</th>
+                <th className="pb-2">VALIDATION STRATEGY</th>
+                <th className="pb-2">KEY METRIC</th>
+                <th className="pb-2">DETAILS</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--border-hairline)]">
+              {mlEvaluations.map((row) => (
+                <tr key={row.project} className="hover:bg-[var(--panel-sub)] transition-colors">
+                  <td className="py-2.5 font-bold text-[var(--text-primary)]">{row.project}</td>
+                  <td className="py-2.5 text-[var(--accent-amber)]">{row.validationStrategy}</td>
+                  <td className="py-2.5 text-[var(--text-secondary)] font-sans">{row.keyMetric}</td>
+                  <td className="py-2.5 text-[var(--text-muted)] font-sans">{row.detail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
-      {/* Split Section: Stories Worth Discussing vs How I Work */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* Left: Stories Worth Discussing */}
-        <div className="flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1222]/90 dark:shadow-[0_8px_30px_rgba(3,7,18,0.7)]">
-          <div className="space-y-4">
-            <div className="border-b border-slate-200/80 dark:border-white/[0.06] pb-3">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Stories Worth Discussing</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Four strong interview narratives and why the technical choices matter
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              {storiesWorthDiscussing.map((story) => (
-                <div
-                  key={story.id}
-                  className="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-4 space-y-1.5 transition hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:border-white/[0.06] dark:bg-[#10192e]/60 dark:hover:bg-[#131f38]"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400">{story.project}</span>
-                    <span className="text-xs text-slate-400">·</span>
-                    <span className="text-xs font-semibold text-slate-900 dark:text-white">{story.headline}</span>
-                  </div>
-                  <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-                    {story.narrative}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/[0.06]">
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
-            >
-              <span>Explore Case Studies</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Right: How I Work */}
-        <div className="flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1222]/90 dark:shadow-[0_8px_30px_rgba(3,7,18,0.7)]">
-          <div className="space-y-4">
-            <div className="border-b border-slate-200/80 dark:border-white/[0.06] pb-3">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">How I Work</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Engineering habits visible across the portfolio
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              {howIWorkPrinciples.map((principle) => (
-                <div
-                  key={principle.id}
-                  className="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-4 transition hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:border-white/[0.06] dark:bg-[#10192e]/60 dark:hover:bg-[#131f38]"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
-                        <DynamicIcon name={principle.icon} className="h-4 w-4" />
-                      </div>
-                      <div className="space-y-1">
-                        <h4 className="text-xs font-bold text-slate-900 dark:text-white">{principle.title}</h4>
-                        <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-                          {principle.description}
-                        </p>
-                      </div>
-                    </div>
-                    <span className="shrink-0 rounded-md border border-slate-200 bg-white px-2 py-0.5 text-[10px] font-medium text-slate-600 dark:border-white/5 dark:bg-white/[0.03] dark:text-slate-400">
-                      {principle.tag}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* CTABanner Guided Tour */}
+      {/* CTABanner */}
       <CTABanner
         message="Numbers tell stories. These metrics summarize the scale, impact, and technical depth behind the projects showcased in this portfolio."
         nextRoute="/journey"
-        nextLabel="Explore Timeline"
+        nextLabel="Explore Journey"
       />
     </div>
   );

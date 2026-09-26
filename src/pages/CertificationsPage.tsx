@@ -20,9 +20,8 @@ import {
   Brain,
   Terminal,
   Layers,
-  CheckCircle2,
-  Compass,
-  ArrowRight
+  Calendar,
+  CheckCircle2
 } from 'lucide-react';
 
 export const CertificationsPage: React.FC = () => {
@@ -56,15 +55,15 @@ export const CertificationsPage: React.FC = () => {
       }
     });
 
-  // Ordered Categories when viewing 'all' and search is empty
-  const categorySections: { key: CertificateCategory; label: string; icon: React.ElementType }[] = [
-    { key: 'aiml', label: 'AI, Machine Learning & Deep Learning', icon: Brain },
-    { key: 'genai', label: 'Generative AI', icon: Sparkles },
-    { key: 'data-science', label: 'Data Science & Analytics', icon: Layers },
-    { key: 'cloud', label: 'Cloud Computing', icon: Cloud },
-    { key: 'nlp', label: 'Natural Language Processing', icon: BookOpen },
-    { key: 'python', label: 'Python & Programming Foundations', icon: Terminal },
-    { key: 'additional', label: 'Additional Learning', icon: GraduationCap }
+  const categories = [
+    { key: 'all' as CertificateCategory, label: 'All' },
+    { key: 'aiml' as CertificateCategory, label: 'AI & ML' },
+    { key: 'genai' as CertificateCategory, label: 'GenAI' },
+    { key: 'data-science' as CertificateCategory, label: 'Data Science' },
+    { key: 'cloud' as CertificateCategory, label: 'Cloud' },
+    { key: 'nlp' as CertificateCategory, label: 'NLP' },
+    { key: 'python' as CertificateCategory, label: 'Python' },
+    { key: 'additional' as CertificateCategory, label: 'Additional' }
   ];
 
   return (
@@ -72,225 +71,132 @@ export const CertificationsPage: React.FC = () => {
       {/* Page Header */}
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="h-6 w-1 rounded-full bg-cyan-500 shadow-[0_0_10px_#22d3ee] dark:bg-cyan-400" />
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white md:text-3xl">
-            Certifications & <span className="text-cyan-600 dark:text-cyan-400 text-glow-cyan">Learning</span>
+          <div className="h-5 w-[3px] bg-[var(--accent-amber)] shadow-[0_0_6px_var(--accent-glow)] rounded-[1px]" />
+          <h1 className="font-sans text-2xl md:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
+            Certifications & Learning
           </h1>
+          <span className="meta-label outline-tag px-2 py-0.5">
+            CREDENTIAL VERIFICATION
+          </span>
         </div>
-        <p className="max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-          A collection of certifications, professional learning programs, cloud training, and hands-on job simulations covering AI, Machine Learning, Data Science, NLP, Python, and Cloud Computing.
+        <p className="max-w-3xl text-xs md:text-sm leading-relaxed text-[var(--text-secondary)]">
+          Academic certifications, professional learning tracks, cloud programs, and hands-on job simulations across AI, Machine Learning, Data Science, and Cloud Computing.
         </p>
 
-        {/* Small Statistics Summary Bar */}
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 pt-2">
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-3.5 text-center shadow-sm backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1220]/90 dark:shadow-none">
-            <div className="text-xl font-extrabold text-cyan-600 dark:text-cyan-400">12+</div>
-            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400">Credentials</div>
+        {/* Small Statistics Summary Bar in Ledger Style snapped to 8px */}
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6 pt-1">
+          <div className="bevel-panel p-3 text-center">
+            <div className="font-mono tabular-nums text-lg font-bold text-[var(--accent-amber)]">12+</div>
+            <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">CREDENTIALS</div>
           </div>
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-3.5 text-center shadow-sm backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1220]/90 dark:shadow-none">
-            <div className="text-xl font-extrabold text-slate-900 dark:text-white">AI / ML</div>
-            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400">Deep Learning & OCI</div>
+          <div className="bevel-panel p-3 text-center">
+            <div className="font-mono text-lg font-bold text-[var(--text-primary)]">AI / ML</div>
+            <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">DEEP LEARNING & OCI</div>
           </div>
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-3.5 text-center shadow-sm backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1220]/90 dark:shadow-none">
-            <div className="text-xl font-extrabold text-slate-900 dark:text-white">GenAI</div>
-            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400">BCG X Simulation</div>
+          <div className="bevel-panel p-3 text-center">
+            <div className="font-mono text-lg font-bold text-[var(--text-primary)]">GENAI</div>
+            <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">BCG X SIMULATION</div>
           </div>
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-3.5 text-center shadow-sm backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1220]/90 dark:shadow-none">
-            <div className="text-xl font-extrabold text-slate-900 dark:text-white">Data Science</div>
-            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400">Analytics & Forage</div>
+          <div className="bevel-panel p-3 text-center">
+            <div className="font-mono text-lg font-bold text-[var(--text-primary)]">DATA SCIENCE</div>
+            <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">ANALYTICS & FORAGE</div>
           </div>
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-3.5 text-center shadow-sm backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1220]/90 dark:shadow-none">
-            <div className="text-xl font-extrabold text-slate-900 dark:text-white">Cloud</div>
-            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400">GCP & Datacom</div>
+          <div className="bevel-panel p-3 text-center">
+            <div className="font-mono text-lg font-bold text-[var(--text-primary)]">CLOUD</div>
+            <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">GCP & ORACLE</div>
           </div>
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-3.5 text-center shadow-sm backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1220]/90 dark:shadow-none">
-            <div className="text-xl font-extrabold text-slate-900 dark:text-white">Python & NLP</div>
-            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400">Text Mining & Syntax</div>
+          <div className="bevel-panel p-3 text-center">
+            <div className="font-mono tabular-nums text-lg font-bold text-[var(--accent-amber)]">73%</div>
+            <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">NPTEL ELITE</div>
           </div>
         </div>
       </div>
 
-      {/* Search & Category Filter Controls */}
-      <div className="space-y-4">
+      {/* Filter and Search Bar */}
+      <div className="space-y-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           {/* Search Box */}
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
+            <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text-muted)]" />
             <input
               type="text"
-              placeholder="Search certifications, providers, skills..."
+              placeholder="Search by title, provider, or topic..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border border-slate-200 bg-white/90 py-2.5 pl-10 pr-4 text-xs font-medium text-slate-900 placeholder-slate-400 shadow-sm backdrop-blur-xl transition focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:border-cyan-500/20 dark:bg-[#0c1222]/90 dark:text-white dark:placeholder-slate-500 dark:focus:border-cyan-400"
+              className="w-full rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-sub)] py-2 pl-9 pr-3 font-mono text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none transition focus:border-[var(--accent-border)]"
             />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-              >
-                Clear
-              </button>
-            )}
           </div>
 
-          {/* Sort Order Toggle */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500 dark:text-slate-400">Sort by:</span>
-            <button
-              onClick={() => setSortOrder(sortOrder === 'newest' ? 'oldest' : 'newest')}
-              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:border-cyan-500/40 hover:bg-cyan-50/50 dark:border-cyan-500/20 dark:bg-[#0c1222]/90 dark:text-slate-300 dark:hover:bg-[#121b33]"
-            >
-              <ArrowUpDown className="h-3.5 w-3.5 text-cyan-600 dark:text-cyan-400" />
-              <span>{sortOrder === 'newest' ? 'Newest First' : 'Oldest First'}</span>
-            </button>
-          </div>
+          {/* Sort Button */}
+          <button
+            onClick={() => setSortOrder(sortOrder === 'newest' ? 'oldest' : 'newest')}
+            className="flex items-center gap-1.5 self-start rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-sub)] px-3 py-2 font-mono text-xs text-[var(--text-secondary)] transition hover:border-[var(--accent-border)] hover:text-[var(--text-primary)] sm:self-auto"
+          >
+            <ArrowUpDown className="h-3 w-3 text-[var(--accent-amber)]" />
+            <span>SORT: {sortOrder.toUpperCase()}</span>
+          </button>
         </div>
 
-        {/* Horizontally scrollable category pills on mobile */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
-          {certificateCategoriesList.map((cat) => {
-            const isActive = selectedCategory === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id as CertificateCategory)}
-                className={`flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-medium transition-all ${
-                  isActive
-                    ? 'bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 font-bold text-white shadow-md shadow-cyan-500/20'
-                    : 'border border-slate-200 bg-white/80 text-slate-600 hover:bg-slate-100 dark:border-white/[0.06] dark:bg-[#0c1222]/80 dark:text-slate-300 dark:hover:bg-[#121b33]'
-                }`}
-              >
-                <span>{cat.label}</span>
-                <span
-                  className={`rounded-full px-1.5 py-0.2 text-[10px] ${
-                    isActive
-                      ? 'bg-white/20 text-white'
-                      : 'bg-slate-100 text-slate-500 dark:bg-white/[0.06] dark:text-slate-400'
-                  }`}
-                >
-                  {cat.count}
-                </span>
-              </button>
-            );
-          })}
+        {/* Category Outline Filters */}
+        <div className="flex flex-wrap items-center gap-1">
+          {categories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setSelectedCategory(cat.key)}
+              className={`rounded-[2px] px-2.5 py-1 font-mono text-xs transition ${
+                selectedCategory === cat.key
+                  ? 'border border-[var(--accent-border)] bg-[var(--accent-subtle)] text-[var(--accent-amber)] font-bold'
+                  : 'border border-[var(--border-hairline)] bg-[var(--panel-sub)] text-[var(--text-muted)] hover:border-[var(--accent-border)] hover:text-[var(--text-primary)]'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Categorized Layout vs Filtered List */}
-      {selectedCategory === 'all' && !searchQuery ? (
-        <div className="space-y-10">
-          {categorySections.map((sec) => {
-            const secCertificates = certificationsData.filter((c) => c.category === sec.key);
-            if (secCertificates.length === 0) return null;
-            const Icon = sec.icon;
+      {/* Certificate Cards Grid */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {filteredCertificates.map((cert, idx) => (
+          <CertificateCard
+            key={cert.id}
+            certificate={cert}
+            featured={cert.featured}
+            onOpenDetails={(c) => setSelectedCertForModal(c)}
+            index={idx}
+          />
+        ))}
+      </div>
 
-            return (
-              <div key={sec.key} className="space-y-4">
-                {/* Category Header */}
-                <div className="flex items-center gap-2.5 border-b border-slate-200/80 pb-2.5 dark:border-white/[0.06]">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                    {sec.label}
-                  </h2>
-                  <span className="text-xs text-slate-400">({secCertificates.length})</span>
-                </div>
-
-                {/* Cards Grid */}
-                <div
-                  className={`grid gap-5 ${
-                    sec.key === 'aiml' || sec.key === 'genai' || sec.key === 'cloud'
-                      ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3'
-                      : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-                  }`}
-                >
-                  {secCertificates.map((cert, idx) => (
-                    <CertificateCard
-                      key={cert.id}
-                      certificate={cert}
-                      featured={cert.featured}
-                      onOpenDetails={(c) => setSelectedCertForModal(c)}
-                      index={idx}
-                    />
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {filteredCertificates.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredCertificates.map((cert, idx) => (
-                <CertificateCard
-                  key={cert.id}
-                  certificate={cert}
-                  featured={cert.featured}
-                  onOpenDetails={(c) => setSelectedCertForModal(c)}
-                  index={idx}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-3xl border border-slate-200 bg-white/80 p-8 text-center dark:border-white/[0.08] dark:bg-[#0c1222]/80">
-              <Compass className="mx-auto h-8 w-8 text-slate-400" />
-              <h3 className="mt-2 text-sm font-bold text-slate-900 dark:text-white">
-                No certifications found
-              </h3>
-              <p className="mt-1 text-xs text-slate-500">
-                Try adjusting your search query or switching category filters.
-              </p>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Learning Journey Progression Section */}
-      <div className="rounded-3xl border border-slate-200/90 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-cyan-500/20 dark:bg-[#0c1222]/90 dark:shadow-[0_8px_30px_rgba(3,7,18,0.7)] md:p-8">
-        <div className="border-b border-slate-200/80 pb-4 dark:border-white/[0.06]">
-          <div className="flex items-center gap-2.5">
-            <GraduationCap className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">
-              Learning Journey & Continuous Progression
-            </h3>
-          </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            How coursework, academic certifications, and industry simulations shaped my technical capabilities
+      {/* Learning Journey Timeline as Bevel Panel */}
+      <div className="bevel-panel p-6 space-y-4">
+        <div className="border-b border-[var(--border-hairline)] pb-3">
+          <h3 className="font-sans text-sm font-bold uppercase tracking-tight text-[var(--text-primary)]">
+            Learning Journey & Continuous Progression
+          </h3>
+          <p className="font-mono text-[10px] text-[var(--text-secondary)]">
+            Chronological progression of learning tracks and credentials.
           </p>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {learningJourneyTimeline.map((item, idx) => (
             <div
-              key={item.year}
-              className="relative flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 transition hover:border-cyan-500/40 hover:bg-cyan-50/30 dark:border-white/[0.05] dark:bg-[#10192e]/60 dark:hover:bg-[#141f38]"
+              key={idx}
+              className="rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-sub)] p-3.5 space-y-1.5"
             >
-              <div>
-                <span className="inline-block rounded-md border border-cyan-500/30 bg-cyan-50 px-2.5 py-0.5 text-xs font-bold text-cyan-700 dark:border-cyan-500/30 dark:bg-cyan-950/60 dark:text-cyan-300">
-                  {item.year}
-                </span>
-                <h4 className="mt-3 text-sm font-bold text-slate-900 dark:text-white">
-                  {item.title}
-                </h4>
-                <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-                  {item.description}
-                </p>
+              <div className="flex items-center justify-between">
+                <span className="font-mono tabular-nums text-[10px] font-bold text-[var(--accent-amber)]">{item.year}</span>
+                <span className="font-mono text-[9px] text-[var(--text-muted)] uppercase">MILESTONE</span>
               </div>
-
-              {idx < 2 && (
-                <div className="mt-4 hidden md:flex items-center text-xs font-semibold text-cyan-600 dark:text-cyan-400">
-                  <span>Progression</span>
-                  <ArrowRight className="ml-1 h-3.5 w-3.5" />
-                </div>
-              )}
+              <h4 className="font-sans text-xs font-bold text-[var(--text-primary)]">{item.title}</h4>
+              <p className="text-[11px] text-[var(--text-secondary)] leading-snug">{item.description}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* CTABanner Guided Tour -> Navigate to Social & Activity */}
+      {/* CTABanner */}
       <CTABanner
         message="Continuous learning through industry-recognized certifications, hands-on projects, and practical application of analytical and machine learning concepts."
         nextRoute="/social"

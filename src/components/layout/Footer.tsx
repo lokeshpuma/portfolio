@@ -3,12 +3,13 @@ import { profileData } from '../../data/profile';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="mt-16 border-t border-slate-200/80 dark:border-white/[0.06] py-8 text-center text-xs text-slate-500 dark:text-slate-400">
-      <div className="flex flex-wrap items-center justify-center gap-2 font-medium">
-        <span className="text-cyan-600 dark:text-cyan-400 font-semibold tracking-wide">
-          {profileData.name} Portfolio
+    <footer className="mt-16 border-t border-[var(--border-hairline)] py-6 text-center text-xs text-[var(--text-muted)]">
+      <div className="flex flex-wrap items-center justify-center gap-2 font-mono tabular-nums text-[10px]">
+        <span className="text-[var(--text-primary)] font-semibold tracking-wide">
+          {profileData.name} PORTFOLIO // INSTRUMENT CONSOLE
         </span>
-        <span className="text-slate-400 dark:text-slate-600">© 2026</span>
+        <span className="text-[var(--text-muted)]">·</span>
+        <span className="text-[var(--accent-amber)]">© 2026</span>
       </div>
     </footer>
   );

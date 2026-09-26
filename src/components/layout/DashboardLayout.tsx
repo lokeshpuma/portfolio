@@ -12,7 +12,7 @@ export const DashboardLayout: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-slate-50 text-slate-900 dark:bg-[#070b14] dark:text-slate-100 transition-colors duration-300">
+    <div className="relative min-h-screen bg-[var(--bg-main)] text-[var(--text-primary)] transition-colors duration-200">
       {/* Refined Minimalist Precision Micro-Pointer Cursor */}
       <CustomCursor />
 
@@ -33,7 +33,7 @@ export const DashboardLayout: React.FC = () => {
       {/* Main Content Area - dynamically adjusts padding when collapsed */}
       <div
         className={`relative z-10 flex min-h-screen flex-col transition-all duration-300 ${
-          isCollapsed ? 'md:pl-20' : 'md:pl-64'
+          isCollapsed ? 'md:pl-16' : 'md:pl-64'
         }`}
       >
         <Topbar onOpenMobileMenu={() => setMobileMenuOpen(true)} />

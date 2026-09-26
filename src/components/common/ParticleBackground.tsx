@@ -48,6 +48,7 @@ export const ParticleBackground: React.FC = () => {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
       const isLight = document.documentElement.classList.contains('light');
+      const particleBase = isLight ? 'rgba(180, 83, 9, ' : 'rgba(245, 158, 11, ';
 
       // Draw particles & subtle connection lines
       for (let i = 0; i < particles.length; i++) {
@@ -67,9 +68,7 @@ export const ParticleBackground: React.FC = () => {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = isLight
-          ? `rgba(2, 132, 199, ${p.alpha * 0.4})`
-          : `rgba(34, 211, 238, ${p.alpha * 0.5})`;
+        ctx.fillStyle = `${particleBase}${p.alpha * (isLight ? 0.4 : 0.25)})`;
         ctx.fill();
 
         // Connect nearby points
@@ -80,10 +79,8 @@ export const ParticleBackground: React.FC = () => {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = isLight
-              ? `rgba(2, 132, 199, ${0.06 * (1 - dist / 110)})`
-              : `rgba(34, 211, 238, ${0.08 * (1 - dist / 110)})`;
-            ctx.lineWidth = 0.6;
+            ctx.strokeStyle = `${particleBase}${ (isLight ? 0.07 : 0.035) * (1 - dist / 110)})`;
+            ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }

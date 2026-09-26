@@ -20,12 +20,15 @@ export const SkillsPage: React.FC = () => {
       {/* Header */}
       <div className="space-y-2">
         <div className="flex items-center gap-3">
-          <div className="h-6 w-1 rounded-full bg-cyan-500 shadow-[0_0_10px_#22d3ee] dark:bg-cyan-400" />
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white md:text-3xl">
-            Technical <span className="text-cyan-600 dark:text-cyan-400 text-glow-cyan">Skills</span>
+          <div className="h-5 w-[3px] bg-[var(--accent-amber)] shadow-[0_0_6px_var(--accent-glow)] rounded-[1px]" />
+          <h1 className="font-sans text-2xl md:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
+            Technical Skills
           </h1>
+          <span className="meta-label outline-tag px-2 py-0.5">
+            CAPABILITY MATRIX
+          </span>
         </div>
-        <p className="max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+        <p className="max-w-3xl text-xs md:text-sm leading-relaxed text-[var(--text-secondary)]">
           A structured summary of tools, frameworks, concepts, and project-validated technical capabilities across data science, machine learning, and software development.
         </p>
       </div>
@@ -50,46 +53,46 @@ export const SkillsPage: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0c1222]/85"
+          transition={{ duration: 0.35 }}
+          className="flex flex-col justify-between bevel-panel p-5"
         >
           <div>
-            <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.06] pb-4">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Technical Skills</h3>
-              <div className="flex items-center gap-2">
-                <span className="rounded-md border border-cyan-500/30 bg-cyan-50 px-2 py-0.5 text-xs font-semibold text-cyan-700 dark:border-cyan-500/20 dark:bg-cyan-950/40 dark:text-cyan-300">
-                  {technicalSkills.length} Skills
-                </span>
-                <span className="text-[11px] text-slate-500 dark:text-slate-400">Verified Proofs</span>
-              </div>
+            <div className="flex items-center justify-between border-b border-[var(--border-hairline)] pb-3">
+              <h3 className="font-sans text-sm font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                Technical Skills
+              </h3>
+              <span className="font-mono tabular-nums text-[10px] text-[var(--accent-amber)] border border-[var(--accent-border)] bg-[var(--accent-subtle)] px-2 py-0.5 rounded-[2px]">
+                {technicalSkills.length} SKILLS
+              </span>
             </div>
 
-            <div className="mt-4 space-y-2.5">
+            <div className="mt-3.5 space-y-2">
               {technicalSkills.map((skill) => (
                 <div
                   key={skill.id}
-                  className="flex items-center justify-between rounded-xl border border-slate-200/80 bg-slate-50/80 px-3.5 py-2.5 transition hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:border-white/[0.05] dark:bg-[#10192e]/60 dark:hover:bg-[#131f38]"
+                  className="flex items-center justify-between rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-sub)] px-3 py-2 transition-colors hover:border-[var(--accent-border)]"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
-                      <DynamicIcon name={skill.icon || 'Code'} className="h-3.5 w-3.5" />
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-active)] text-[var(--accent-amber)]">
+                      <DynamicIcon name={skill.icon || 'Code'} className="h-3 w-3" />
                     </div>
-                    <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">{skill.name}</span>
+                    <span className="font-sans text-xs font-semibold text-[var(--text-primary)]">{skill.name}</span>
                   </div>
-                  <span className="rounded-md border border-slate-200 bg-white px-2 py-0.5 text-[10px] font-medium text-slate-600 dark:border-white/5 dark:bg-white/[0.03] dark:text-slate-400">
-                    {skill.category}
+                  {/* Trailing monospace category tag (e.g. · ML) */}
+                  <span className="font-mono text-[10px] text-[var(--text-muted)]">
+                    · {skill.category}
                   </span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/[0.06]">
+          <div className="mt-5 pt-3 border-t border-[var(--border-hairline)]">
             <Link
               to="/projects"
-              className="group inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
+              className="group inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[var(--accent-amber)] hover:underline"
             >
-              <span>View All Skills in Projects</span>
+              <span>VIEW IN PROJECTS</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
@@ -99,30 +102,32 @@ export const SkillsPage: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0c1222]/85"
+          transition={{ duration: 0.35, delay: 0.08 }}
+          className="flex flex-col justify-between bevel-panel p-5"
         >
           <div>
-            <div className="border-b border-slate-200/80 dark:border-white/[0.06] pb-4">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">ML Interview Coverage</h3>
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                Concrete portfolio evidence across the workflow interviewers usually probe.
+            <div className="border-b border-[var(--border-hairline)] pb-3">
+              <h3 className="font-sans text-sm font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                ML Interview Coverage
+              </h3>
+              <p className="mt-1 font-mono text-[10px] text-[var(--text-secondary)]">
+                Validated portfolio evidence across interview probes.
               </p>
             </div>
 
-            <div className="mt-4 space-y-3">
+            <div className="mt-3.5 space-y-2.5">
               {interviewCoverage.map((item) => (
                 <div
                   key={item.id}
-                  className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-3.5 transition hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:border-white/[0.06] dark:bg-[#10192e]/60 dark:hover:bg-[#131f38]"
+                  className="rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-sub)] p-3 transition-colors hover:border-[var(--accent-border)]"
                 >
                   <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-600 dark:text-cyan-400" />
-                    <div className="space-y-1">
-                      <div className="text-xs font-bold text-slate-900 dark:text-slate-100">{item.theme}</div>
-                      <div className="text-[11px] font-medium text-cyan-600 dark:text-cyan-400/90">{item.projects}</div>
+                    <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--accent-amber)]" />
+                    <div className="space-y-0.5">
+                      <div className="font-sans text-xs font-bold text-[var(--text-primary)]">{item.theme}</div>
+                      <div className="font-mono text-[10px] text-[var(--accent-amber)]">{item.projects}</div>
                       {item.description && (
-                        <p className="text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">
+                        <p className="text-[11px] leading-relaxed text-[var(--text-secondary)]">
                           {item.description}
                         </p>
                       )}
@@ -133,12 +138,12 @@ export const SkillsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/[0.06]">
+          <div className="mt-5 pt-3 border-t border-[var(--border-hairline)]">
             <Link
               to="/insights"
-              className="group inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
+              className="group inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[var(--accent-amber)] hover:underline"
             >
-              <span>Explore Technical Proofs</span>
+              <span>EXPLORE TECHNICAL PROOFS</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
@@ -148,23 +153,25 @@ export const SkillsPage: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0c1222]/85"
+          transition={{ duration: 0.35, delay: 0.16 }}
+          className="flex flex-col justify-between bevel-panel p-5"
         >
           <div>
-            <div className="border-b border-slate-200/80 dark:border-white/[0.06] pb-4">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Skills by Category</h3>
-              {/* Category Filter Tabs */}
-              <div className="mt-3 flex flex-wrap gap-1.5">
+            <div className="border-b border-[var(--border-hairline)] pb-3">
+              <h3 className="font-sans text-sm font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                Skills by Category
+              </h3>
+              {/* Category Outline Filter Tabs */}
+              <div className="mt-2.5 flex flex-wrap gap-1">
                 {['All', 'Programming', 'Data Analysis', 'Statistics', 'Machine Learning', 'Visualization'].map(
                   (cat) => (
                     <button
                       key={cat}
                       onClick={() => setActiveCategoryFilter(cat)}
-                      className={`rounded-lg px-2.5 py-1 text-[11px] font-medium transition ${
+                      className={`rounded-[2px] px-2 py-0.5 font-mono text-[9px] font-semibold transition ${
                         activeCategoryFilter === cat
-                          ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold shadow-md shadow-cyan-500/20'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/[0.04] dark:text-slate-400 dark:hover:bg-white/[0.08] dark:hover:text-slate-200'
+                          ? 'border border-[var(--accent-border)] bg-[var(--accent-subtle)] text-[var(--accent-amber)]'
+                          : 'border border-[var(--border-hairline)] text-[var(--text-muted)] hover:border-[var(--accent-border)] hover:text-[var(--text-primary)]'
                       }`}
                     >
                       {cat}
@@ -174,24 +181,24 @@ export const SkillsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-4 space-y-3">
+            <div className="mt-3.5 space-y-2.5">
               {filteredCategories.map((cat) => (
                 <div
                   key={cat.name}
-                  className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-3.5 transition hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:border-white/[0.06] dark:bg-[#10192e]/60 dark:hover:bg-[#131f38]"
+                  className="rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-sub)] p-3 transition-colors hover:border-[var(--accent-border)]"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
-                        <DynamicIcon name={cat.icon} className="h-3.5 w-3.5" />
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[var(--border-hairline)] bg-[var(--panel-active)] text-[var(--accent-amber)]">
+                        <DynamicIcon name={cat.icon} className="h-3 w-3" />
                       </div>
-                      <span className="text-xs font-bold text-slate-900 dark:text-white">{cat.name}</span>
+                      <span className="font-sans text-xs font-bold text-[var(--text-primary)]">{cat.name}</span>
                     </div>
-                    <span className="rounded-md border border-cyan-500/30 bg-cyan-50 px-2 py-0.5 text-[11px] font-semibold text-cyan-700 dark:border-cyan-500/20 dark:bg-cyan-950/40 dark:text-cyan-300">
-                      {cat.count} Skills
+                    <span className="font-mono tabular-nums text-[10px] text-[var(--accent-amber)]">
+                      {cat.count} SKILLS
                     </span>
                   </div>
-                  <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                  <p className="mt-1.5 text-[11px] text-[var(--text-secondary)] leading-snug">
                     {cat.skills}
                   </p>
                 </div>
@@ -199,19 +206,19 @@ export const SkillsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/[0.06]">
+          <div className="mt-5 pt-3 border-t border-[var(--border-hairline)]">
             <Link
               to="/projects"
-              className="group inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
+              className="group inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[var(--accent-amber)] hover:underline"
             >
-              <span>Explore ML Skills</span>
+              <span>EXPLORE ML CAPABILITIES</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
         </motion.div>
       </div>
 
-      {/* CTABanner Guided Tour */}
+      {/* CTABanner */}
       <CTABanner
         message="From Python and SQL to Machine Learning, Tableau, Power BI, Flask, and Streamlit - these are the tools powering every solution in this portfolio."
         nextRoute="/projects"

@@ -9,7 +9,6 @@ export const CustomCursor: React.FC = () => {
   const cursorY = useMotionValue(-100);
 
   useEffect(() => {
-    // Only enable on desktop mouse pointers
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -67,12 +66,12 @@ export const CustomCursor: React.FC = () => {
         translateY: '-50%',
       }}
       animate={{
-        scale: isHovered ? 2.2 : 1,
-        backgroundColor: isHovered ? 'rgba(34, 211, 238, 0.25)' : 'rgba(34, 211, 238, 0.9)',
-        borderColor: isHovered ? 'rgba(34, 211, 238, 0.9)' : 'transparent',
+        scale: isHovered ? 1.8 : 1,
+        backgroundColor: isHovered ? 'rgba(245, 158, 11, 0.2)' : 'rgba(245, 158, 11, 0.85)',
+        borderColor: isHovered ? 'rgba(245, 158, 11, 0.9)' : 'transparent',
       }}
-      transition={{ duration: 0.15, ease: 'easeOut' }}
-      className="pointer-events-none fixed inset-0 z-50 h-3 w-3 rounded-full border border-transparent shadow-[0_0_8px_rgba(34,211,238,0.6)] backdrop-blur-[0.5px]"
+      transition={{ duration: 0.12, ease: 'easeOut' }}
+      className="pointer-events-none fixed inset-0 z-50 h-2.5 w-2.5 rounded-[1px] border border-transparent"
     />
   );
 };
